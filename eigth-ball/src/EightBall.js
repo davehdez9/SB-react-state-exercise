@@ -11,29 +11,45 @@ import "./EightBall.css"
 // Should change the background color of the ball and the message
 
 
-const random = (arr) => {
-    const randomIdx = Math.floor(Math.random() * arr.length)
-    return arr[randomIdx]
-}
-
 const EightBall = (props) => {
+    // const initialMessage = "Think of a Question";
+    // const initialColor = "black"
+
+    const random = (arr) => {
+        const randomIdx = Math.floor(Math.random() * arr.length)
+        return arr[randomIdx]
+    }
+    const restart = () => {
+        console.log('restarting')
+        setMsg("Think of a Question")
+        setColor("black")
+        setRecords(0)
+    }
+
     const [msg, setMsg] = useState("Think of a Question")
     const [color, setColor] = useState("black")
+    const [record, setRecords] = useState(0)
 
     const clicker = () => {
+        console.log('clicker')
         const {msg, color} = random(props.answers)
         setMsg(msg)
         setColor(color)
+        setRecords(record + 1)
     }
 
     return (
-        <div 
-            className="EightBall"
-            onClick={clicker}
-            style={{ backgroundColor: color}}
-        >
-            <b>{msg}</b>
-        </div>
+        <>
+            <div 
+                className="EightBall"
+                onClick={clicker}
+                style={{ backgroundColor: color}}
+            >
+                <b>{msg}</b>
+            </div>
+            <h3>Record #{record}</h3>
+            <button onClick={restart}>restart</button>    
+        </>        
     )
 }
 
